@@ -1,4 +1,4 @@
-import type { ApiErrorResponse } from "../../src/shared/releases";
+import type { ApiErrorResponse } from "../../src/shared/releases.js";
 
 const jsonHeaders = {
   "content-type": "application/json; charset=utf-8",

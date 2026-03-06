@@ -1,8 +1,8 @@
-import { getGithubSourceConfig } from "../src/server/env";
-import { HttpError } from "../src/server/errors";
-import { parseReleaseFilters } from "../src/server/query";
-import { listReleases } from "../src/server/release-service";
-import { errorJson, json } from "./_lib/response";
+import { getGithubSourceConfig } from "../src/server/env.js";
+import { HttpError } from "../src/server/errors.js";
+import { parseReleaseFilters } from "../src/server/query.js";
+import { listReleases } from "../src/server/release-service.js";
+import { errorJson, json } from "./_lib/response.js";
 
 export async function GET(request: Request): Promise<Response> {
   const source = getGithubSourceConfig();

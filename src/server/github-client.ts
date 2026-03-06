@@ -1,5 +1,5 @@
-import { HttpError } from "./errors";
-import type { GithubSourceConfig } from "./env";
+import { HttpError } from "./errors.js";
+import type { GithubSourceConfig } from "./env.js";
 
 export interface GithubReleaseAsset {
   name: string;

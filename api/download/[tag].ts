@@ -1,8 +1,8 @@
-import { getGithubSourceConfig } from "../../src/server/env";
-import { HttpError } from "../../src/server/errors";
-import { parseReleaseFilters } from "../../src/server/query";
-import { getTaggedDownloadTarget } from "../../src/server/release-service";
-import { errorJson, redirect } from "../_lib/response";
+import { getGithubSourceConfig } from "../../src/server/env.js";
+import { HttpError } from "../../src/server/errors.js";
+import { parseReleaseFilters } from "../../src/server/query.js";
+import { getTaggedDownloadTarget } from "../../src/server/release-service.js";
+import { errorJson, redirect } from "../_lib/response.js";
 
 const readTagFromPath = (request: Request): string | null => {
   const url = new URL(request.url);

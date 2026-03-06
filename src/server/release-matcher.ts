@@ -1,4 +1,4 @@
-import type { ModLoader, ReleaseFilters } from "../shared/releases";
+import type { ModLoader, ReleaseFilters } from "../shared/releases.js";
 
 const DEFAULT_PROJECT_MC_VERSION = "1.21.1";
 

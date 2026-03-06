@@ -1,12 +1,12 @@
-import { HttpError } from "./errors";
-import type { GithubSourceConfig } from "./env";
+import { HttpError } from "./errors.js";
+import type { GithubSourceConfig } from "./env.js";
 import {
   fetchGithubReleases,
   type GithubRelease,
   type GithubReleaseAsset,
-} from "./github-client";
-import { doesAssetMatchFilters, parseModAssetName } from "./release-matcher";
-import type { ModAsset, ReleaseEntry, ReleaseFilters, ReleasesApiResponse } from "../shared/releases";
+} from "./github-client.js";
+import { doesAssetMatchFilters, parseModAssetName } from "./release-matcher.js";
+import type { ModAsset, ReleaseEntry, ReleaseFilters, ReleasesApiResponse } from "../shared/releases.js";
 
 const getPublishedAt = (release: GithubRelease): string => release.published_at || release.created_at;
 

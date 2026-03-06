@@ -1,5 +1,5 @@
-import { HttpError } from "./errors";
-import { isModLoader, type ModLoader, type ReleaseFilters } from "../shared/releases";
+import { HttpError } from "./errors.js";
+import { isModLoader, type ModLoader, type ReleaseFilters } from "../shared/releases.js";
 
 const MC_VERSION_REGEX = /^\d+\.\d+(?:\.\d+)?$/;
 
