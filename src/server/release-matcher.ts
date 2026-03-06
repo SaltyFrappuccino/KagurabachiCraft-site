@@ -1,7 +1,11 @@
 import type { ModLoader, ReleaseFilters } from "../shared/releases";
 
-const MOD_ASSET_REGEX =
-  /^kagurabachicraft-(?<mc>\d+\.\d+(?:\.\d+)?)-(?<loader>fabric|forge|neoforge)\.jar$/i;
+const DEFAULT_PROJECT_MC_VERSION = "1.21.1";
+
+const ASSET_PATTERNS = [
+  /^kagurabachicraft-(?<mc>\d+\.\d+(?:\.\d+)?)-(?<loader>fabric|forge|neoforge)\.jar$/i,
+  /^kagurabachi[_-]?craft[_-]?(?<loader>fabric|forge|neoforge)-(?<modVersion>\d+\.\d+(?:\.\d+)*)\.jar$/i,
+] as const;
 
 export interface ParsedModAssetName {
   mcVersion: string;
@@ -9,15 +13,19 @@ export interface ParsedModAssetName {
 }
 
 export const parseModAssetName = (assetName: string): ParsedModAssetName | null => {
-  const match = MOD_ASSET_REGEX.exec(assetName);
-  if (!match?.groups) {
-    return null;
+  for (const pattern of ASSET_PATTERNS) {
+    const match = pattern.exec(assetName);
+    if (!match?.groups) {
+      continue;
+    }
+
+    return {
+      mcVersion: match.groups.mc ?? DEFAULT_PROJECT_MC_VERSION,
+      loader: match.groups.loader.toLowerCase() as ModLoader,
+    };
   }
 
-  return {
-    mcVersion: match.groups.mc,
-    loader: match.groups.loader.toLowerCase() as ModLoader,
-  };
+  return null;
 };
 
 export const doesAssetMatchFilters = (

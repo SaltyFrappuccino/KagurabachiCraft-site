@@ -11,10 +11,11 @@ const readTagFromPath = (request: Request): string | null => {
   if (!rawTag) {
     return null;
   }
+
   return decodeURIComponent(rawTag);
 };
 
-export default async function handler(request: Request): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
   const source = getGithubSourceConfig();
   const fallbackUrl = source.releasesUrl;
 

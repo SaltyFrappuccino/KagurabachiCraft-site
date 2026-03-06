@@ -1,8 +1,20 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
-import downloadTagHandler from "./api/download/[tag]";
-import downloadLatestHandler from "./api/download/latest";
-import releasesHandler from "./api/releases";
+import * as downloadTagRoute from "./api/download/[tag]";
+import * as downloadLatestRoute from "./api/download/latest";
+import * as releasesRoute from "./api/releases";
+
+type RouteModule = {
+  GET?: (request: Request) => Promise<Response> | Response;
+};
+
+const runRoute = async (routeModule: RouteModule, request: Request): Promise<Response | null> => {
+  if (!routeModule.GET) {
+    return null;
+  }
+
+  return routeModule.GET(request);
+};
 
 const apiDevPlugin = (): Plugin => ({
   name: "local-api-routes",
@@ -23,11 +35,11 @@ const apiDevPlugin = (): Plugin => ({
       let response: Response | null = null;
 
       if (req.url.startsWith("/api/releases")) {
-        response = await releasesHandler(request);
+        response = await runRoute(releasesRoute, request);
       } else if (req.url.startsWith("/api/download/latest")) {
-        response = await downloadLatestHandler(request);
+        response = await runRoute(downloadLatestRoute, request);
       } else if (/^\/api\/download\/[^/]+/.test(req.url)) {
-        response = await downloadTagHandler(request);
+        response = await runRoute(downloadTagRoute, request);
       }
 
       if (!response) {

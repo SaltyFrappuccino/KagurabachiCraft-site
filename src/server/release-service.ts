@@ -118,7 +118,7 @@ export const getLatestDownloadTarget = async (
     throw new HttpError(
       404,
       "Подходящий релиз не найден",
-      "Проверьте выбранные loader и версию Minecraft.",
+      "GitHub release найден, но в нем нет .jar файла с поддерживаемым именем.",
     );
   }
 
@@ -139,7 +139,7 @@ export const getTaggedDownloadTarget = async (
     throw new HttpError(
       404,
       "Версия не найдена",
-      "Для выбранной версии нет ассета с текущими фильтрами.",
+      "Для выбранного тега нет подходящего .jar файла.",
     );
   }
 

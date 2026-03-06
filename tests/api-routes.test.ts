@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import latestDownloadHandler from "../api/download/latest";
-import releasesHandler from "../api/releases";
+import * as latestDownloadRoute from "../api/download/latest";
+import * as releasesRoute from "../api/releases";
 import { clearGithubReleasesCache } from "../src/server/github-client";
 import { githubReleasesFixture } from "./fixtures/github-releases";
 
@@ -18,7 +18,7 @@ describe("api routes", () => {
       .spyOn(globalThis, "fetch")
       .mockImplementation(async () => Response.json(githubReleasesFixture));
 
-    const response = await releasesHandler(new Request("http://localhost/api/releases"));
+    const response = await releasesRoute.GET(new Request("http://localhost/api/releases"));
     const payload = (await response.json()) as { releases: Array<{ tag: string; notes: string }> };
 
     expect(response.status).toBe(200);
@@ -32,7 +32,7 @@ describe("api routes", () => {
       .spyOn(globalThis, "fetch")
       .mockImplementation(async () => Response.json(githubReleasesFixture));
 
-    const response = await latestDownloadHandler(
+    const response = await latestDownloadRoute.GET(
       new Request("http://localhost/api/download/latest"),
     );
 
@@ -51,7 +51,7 @@ describe("api routes", () => {
       });
     });
 
-    const response = await releasesHandler(new Request("http://localhost/api/releases"));
+    const response = await releasesRoute.GET(new Request("http://localhost/api/releases"));
     const payload = (await response.json()) as { error: string; fallbackUrl: string };
 
     expect(response.status).toBe(503);

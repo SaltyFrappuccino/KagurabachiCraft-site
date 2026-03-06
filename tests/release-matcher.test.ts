@@ -17,6 +17,11 @@ describe("release-matcher", () => {
       mcVersion: "1.21",
       loader: "neoforge",
     });
+
+    expect(parseModAssetName("kagurabachi_craft_neoforge-2.3.2.jar")).toEqual({
+      mcVersion: "1.21.1",
+      loader: "neoforge",
+    });
   });
 
   it("rejects non-matching asset names", () => {

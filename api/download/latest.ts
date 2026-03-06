@@ -4,7 +4,7 @@ import { parseReleaseFilters } from "../../src/server/query";
 import { getLatestDownloadTarget } from "../../src/server/release-service";
 import { errorJson, redirect } from "../_lib/response";
 
-export default async function handler(request: Request): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
   const source = getGithubSourceConfig();
   const fallbackUrl = source.releasesUrl;
 
